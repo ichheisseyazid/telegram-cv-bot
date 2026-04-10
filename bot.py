@@ -112,10 +112,22 @@ async def handle_answer(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "📄 Generating your PDF now..."
         )
 
-        # Step 6 will plug in here
-        await update.message.reply_text(
-            "🚧 PDF generation coming in the next step!"
-        )
+        # Generate PDF
+        from pdf_generator import generate_pdf
+        pdf_path = await asyncio.to_thread(generate_pdf, completed_data)
+
+        # Send PDF to user
+        with open(pdf_path, "rb") as pdf_file:
+            await update.message.reply_document(
+                document=pdf_file,
+                filename=f"CV_{completed_data.get('full_name', 'output').replace(' ', '_')}.pdf",
+                caption="✅ Here is your professional CV! Good luck! 🚀"
+            )
+
+        # Cleanup temp file
+        os.remove(pdf_path)
+
+        # Wipe session
         delete_session(user_id)
 
 

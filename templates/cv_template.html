@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: "Georgia", serif;
+      font-size: 13px;
+      color: #1a1a1a;
+      padding: 40px 50px;
+      line-height: 1.6;
+    }
+
+    /* ── Header ── */
+    .header {
+      border-bottom: 3px solid #2c3e50;
+      padding-bottom: 14px;
+      margin-bottom: 20px;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      letter-spacing: 1px;
+      color: #2c3e50;
+      text-transform: uppercase;
+    }
+
+    .header .job-title {
+      font-size: 15px;
+      color: #7f8c8d;
+      margin-top: 4px;
+      font-style: italic;
+    }
+
+    .contact-row {
+      margin-top: 8px;
+      font-size: 12px;
+      color: #555;
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    /* ── Section ── */
+    .section {
+      margin-bottom: 22px;
+    }
+
+    .section-title {
+      font-size: 13px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #2c3e50;
+      border-bottom: 1px solid #bdc3c7;
+      padding-bottom: 4px;
+      margin-bottom: 10px;
+    }
+
+    /* ── Summary ── */
+    .summary p {
+      color: #333;
+      text-align: justify;
+    }
+
+    /* ── Experience ── */
+    .exp-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    .exp-header .role {
+      font-weight: bold;
+      font-size: 14px;
+      color: #2c3e50;
+    }
+
+    .exp-header .duration {
+      font-size: 11px;
+      color: #7f8c8d;
+    }
+
+    .exp-company {
+      font-style: italic;
+      color: #555;
+      margin-bottom: 6px;
+    }
+
+    .exp-description {
+      color: #333;
+      white-space: pre-line;
+      padding-left: 4px;
+    }
+
+    /* ── Education ── */
+    .edu-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    .edu-header .degree {
+      font-weight: bold;
+      color: #2c3e50;
+    }
+
+    .edu-header .year {
+      font-size: 11px;
+      color: #7f8c8d;
+    }
+
+    .edu-school {
+      font-style: italic;
+      color: #555;
+    }
+
+    /* ── Skills & Languages ── */
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag {
+      background: #ecf0f1;
+      color: #2c3e50;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+    }
+
+    .lang-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .lang-item {
+      font-size: 12px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="header">
+    <h1>{{ full_name }}</h1>
+    <div class="job-title">{{ job_title }}</div>
+    <div class="contact-row">
+      <span>{{ email }}</span>
+      <span>{{ phone }}</span>
+      <span>{{ location }}</span>
+    </div>
+  </div>
+
+  <!-- Professional Summary -->
+  <div class="section summary">
+    <div class="section-title">Professional Summary</div>
+    <p>{{ professional_summary }}</p>
+  </div>
+
+  <!-- Experience -->
+  <div class="section">
+    <div class="section-title">Experience</div>
+    <div class="exp-header">
+      <span class="role">{{ experience_role }}</span>
+      <span class="duration">{{ experience_duration }}</span>
+    </div>
+    <div class="exp-company">{{ experience_company }}</div>
+    <div class="exp-description">{{ experience_description }}</div>
+  </div>
+
+  <!-- Education -->
+  <div class="section">
+    <div class="section-title">Education</div>
+    <div class="edu-header">
+      <span class="degree">{{ education_degree }}</span>
+      <span class="year">{{ education_year }}</span>
+    </div>
+    <div class="edu-school">{{ education_school }}</div>
+  </div>
+
+  <!-- Skills -->
+  <div class="section">
+    <div class="section-title">Skills</div>
+    <div class="tags">
+      {% for skill in skills_list %}
+      <span class="tag">{{ skill }}</span>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Languages -->
+  <div class="section">
+    <div class="section-title">Languages</div>
+    <div class="lang-row">
+      {% for lang in languages_list %}
+      <span class="lang-item">{{ lang }}</span>
+      {% endfor %}
+    </div>
+  </div>
+
+</body>
+</html>
