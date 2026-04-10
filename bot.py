@@ -1,5 +1,6 @@
 # bot.py
 
+import asyncio
 import os
 from dotenv import load_dotenv
 from telegram import Update
@@ -101,9 +102,19 @@ async def handle_answer(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "✅ Got all your info!\n\n"
             "⏳ Now generating your CV... this may take a few seconds."
         )
-        # Step 5 and 6 will plug in here
+        # Run AI generation
+        from ai_writer import fill_ai_fields
+        collected_data = session["data"]
+        completed_data = await asyncio.to_thread(fill_ai_fields, collected_data)
+
         await update.message.reply_text(
-            "🚧 AI writing and PDF generation coming in the next steps!"
+            "✍️ AI has written your descriptions!\n\n"
+            "📄 Generating your PDF now..."
+        )
+
+        # Step 6 will plug in here
+        await update.message.reply_text(
+            "🚧 PDF generation coming in the next step!"
         )
         delete_session(user_id)
 
@@ -114,7 +125,6 @@ async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
         "❌ CV generation cancelled. Type /generate to start again."
     )
-
 
 # ── Main ───────────────────────────────────────────────────
 
